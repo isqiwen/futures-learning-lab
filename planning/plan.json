@@ -1,0 +1,2044 @@
+{
+  "schema_version": 1,
+  "lab": "futures-learning-lab",
+  "owner": "isqiwen",
+  "repository": "futures-learning-lab",
+  "description": "面向中国期货的量化学习与研究实验室：市场机制、数据、策略、统计检验、组合风控与执行。",
+  "project_title": "Futures Learning & Research",
+  "default_visibility": "private",
+  "budget": {
+    "weeks": 52,
+    "hours_per_week": [
+      6,
+      8
+    ],
+    "confirmed": false,
+    "start_date": null,
+    "shared_with": "llm-learning-lab"
+  },
+  "phases": [
+    {
+      "id": "M1",
+      "name": "市场机制与能力诊断",
+      "start": 1,
+      "end": 4,
+      "gate": "独立解释合约、保证金和逐日结算；完成三份带来源的合约卡与人工账本核对。"
+    },
+    {
+      "id": "M2",
+      "name": "统计、时间序列与研究方法",
+      "start": 5,
+      "end": 10,
+      "gate": "能做时间顺序评价、区间估计与多重尝试记录；不以一次高 Sharpe 判断有效。"
+    },
+    {
+      "id": "M3",
+      "name": "期货数据与可信回测",
+      "start": 11,
+      "end": 18,
+      "gate": "合约级账本、换月、成本、可成交性和 as-of 时间通过审计；负面对照能抓住未来函数。"
+    },
+    {
+      "id": "M4",
+      "name": "核心策略家族",
+      "start": 19,
+      "end": 28,
+      "gate": "趋势为主，carry/截面/价差选配；至少两类策略在同一协议下比较，保留负结果。"
+    },
+    {
+      "id": "M5",
+      "name": "产业、宏观与事件",
+      "start": 29,
+      "end": 34,
+      "gate": "两个产业链知识档案及一个严格按当时可用信息构建的基本面或事件实验。"
+    },
+    {
+      "id": "M6",
+      "name": "组合、成本与风险",
+      "start": 35,
+      "end": 40,
+      "gate": "整数手数、资金分母、相关性、保证金和不可平仓压力均有证据；不要求盈利。"
+    },
+    {
+      "id": "M7",
+      "name": "执行、运维与模拟验证",
+      "start": 41,
+      "end": 46,
+      "gate": "订单状态、恢复核对和故障演练可复核；Paper/只读/影子/实盘证据严格分开。"
+    },
+    {
+      "id": "M8",
+      "name": "复现、机器学习对照与独立研究",
+      "start": 47,
+      "end": 52,
+      "gate": "一份完整复现/迁移检验报告和一个可证伪研究循环；说明未解决问题与后续条件。"
+    }
+  ],
+  "weeks": [
+    {
+      "id": "QF-W01",
+      "week": 1,
+      "phase": "M1",
+      "title": "能力诊断、总时间预算与学习环境",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W01",
+      "resources": [
+        "CME",
+        "MIT-PROB"
+      ],
+      "deliverables": [
+        "notes/diagnostic.md",
+        "notes/time-budget.md"
+      ],
+      "acceptance": [
+        "独立完成诊断题并区分会解释、会实现、待补课",
+        "记录与 llm-learning-lab 共用的每周总预算，不叠加两份全时计划",
+        "运行仓库测试，明确这只验证脚手架而非个人能力"
+      ],
+      "oral_question": "为什么软件测试全通过仍不能证明你掌握量化研究？",
+      "depends_on": []
+    },
+    {
+      "id": "QF-W02",
+      "week": 2,
+      "phase": "M1",
+      "title": "读懂三个国内期货合约与规则版本",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W02",
+      "resources": [
+        "SHFE",
+        "DCE",
+        "CZCE",
+        "CFA"
+      ],
+      "deliverables": [
+        "notes/contracts/three-contracts.md"
+      ],
+      "acceptance": [
+        "至少跨两个交易所选择三个品种，记录来源、生效日、查询日",
+        "解释乘数、tick、到期、交割和自然人持仓约束；未知项标为待核验",
+        "区分交易所最低要求与期货公司实际条件，不写死当前费率"
+      ],
+      "oral_question": "为什么主力连续不是一个可以直接下单的合约？",
+      "depends_on": [
+        "QF-W01"
+      ]
+    },
+    {
+      "id": "QF-W03",
+      "week": 3,
+      "phase": "M1",
+      "title": "盈亏、逐日结算、手续费与保证金",
+      "kind": "Implementation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W03",
+      "resources": [
+        "CME",
+        "SHFE"
+      ],
+      "deliverables": [
+        "labs/ledger-audit/",
+        "reports/ledger-audit.md"
+      ],
+      "acceptance": [
+        "人工与代码核对多空、隔夜、平今及平昨的教学案例",
+        "资金权益与保证金占用分列；收益分母明确，不用占用保证金冒充总资金收益",
+        "扩展示例加入至少一个失败用例；教学规则不可当成真实结算规则"
+      ],
+      "oral_question": "释放保证金为什么不等于赚到了钱？",
+      "depends_on": [
+        "QF-W02"
+      ]
+    },
+    {
+      "id": "QF-W04",
+      "week": 4,
+      "phase": "M1",
+      "title": "交易时段、风险机制与 M1 复盘",
+      "kind": "Evaluation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W04",
+      "resources": [
+        "SHFE-EDU",
+        "SHFE",
+        "CZCE",
+        "GFEX",
+        "CSRC-EDU"
+      ],
+      "deliverables": [
+        "notes/market-mechanics.md",
+        "reports/M1-review.md"
+      ],
+      "acceptance": [
+        "说明夜盘自然日和交易日的区别，并核验选定品种日历",
+        "记录涨跌停、限仓、临近交割等需动态复核的项目",
+        "不查笔记解释三份合约卡与账本；不通过则延长阶段"
+      ],
+      "oral_question": "止损单为什么不能保证在设定价格离场？",
+      "depends_on": [
+        "QF-W03"
+      ]
+    },
+    {
+      "id": "QF-W05",
+      "week": 5,
+      "phase": "M2",
+      "title": "概率、尾部与风险的数值直觉",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W05",
+      "resources": [
+        "MIT-PROB"
+      ],
+      "deliverables": [
+        "notes/probability.md",
+        "labs/tail-risk/"
+      ],
+      "acceptance": [
+        "解释条件概率、期望、方差与样本依赖",
+        "比较正态假设与合成厚尾序列，不把样本最大亏损当风险上界",
+        "推导期望盈亏并写出收益期望不能决定资金生存的反例"
+      ],
+      "oral_question": "高胜率策略为什么仍可能有负期望或破产风险？",
+      "depends_on": [
+        "QF-W04"
+      ]
+    },
+    {
+      "id": "QF-W06",
+      "week": 6,
+      "phase": "M2",
+      "title": "统计推断、相关样本与置信区间",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W06",
+      "resources": [
+        "MIT-PROB",
+        "FPP3"
+      ],
+      "deliverables": [
+        "labs/inference/",
+        "reports/inference.md"
+      ],
+      "acceptance": [
+        "比较独立样本 bootstrap 与分块抽样的适用边界",
+        "报告效应大小和区间，而非只给 p 值",
+        "给出自相关减少有效样本信息的合成例子"
+      ],
+      "oral_question": "一万根分钟 K 线为什么不等于一万个独立样本？",
+      "depends_on": [
+        "QF-W05"
+      ]
+    },
+    {
+      "id": "QF-W07",
+      "week": 7,
+      "phase": "M2",
+      "title": "回归、协方差与正则化基础",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W07",
+      "resources": [
+        "MIT-PROB",
+        "ISLP"
+      ],
+      "deliverables": [
+        "labs/regression-baseline/",
+        "notes/regression.md"
+      ],
+      "acceptance": [
+        "用小样本手工/库函数核对线性回归或 ridge",
+        "解释共线性、估计误差和标准化的作用",
+        "所有拟合参数仅来自训练段，构造全样本标准化泄漏反例"
+      ],
+      "oral_question": "模型拟合更好与可交易收益更好差在哪里？",
+      "depends_on": [
+        "QF-W06"
+      ]
+    },
+    {
+      "id": "QF-W08",
+      "week": 8,
+      "phase": "M2",
+      "title": "时间序列、非平稳与结构变化",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W08",
+      "resources": [
+        "FPP3",
+        "FPP-PY"
+      ],
+      "deliverables": [
+        "notes/time-series.md",
+        "labs/time-series-diagnostics/"
+      ],
+      "acceptance": [
+        "区分价格、收益、价差与差分序列",
+        "检查 ACF、趋势和波动聚集；解释检验的假设与局限",
+        "给出制度或合约改变导致结构变化的研究处理原则"
+      ],
+      "oral_question": "两个价格高度相关为何不足以证明价差均值回归？",
+      "depends_on": [
+        "QF-W07"
+      ]
+    },
+    {
+      "id": "QF-W09",
+      "week": 9,
+      "phase": "M2",
+      "title": "滚动预测起点与朴素基线",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W09",
+      "resources": [
+        "FPP-CV",
+        "FPP-PY"
+      ],
+      "deliverables": [
+        "labs/rolling-forecast/",
+        "reports/rolling-forecast.md"
+      ],
+      "acceptance": [
+        "以 expanding 或 rolling 方式重估，训练时刻严格早于预测时刻",
+        "对照持平/历史均值等朴素预测，不先扫大量模型",
+        "区分预测误差指标与含成本交易收益"
+      ],
+      "oral_question": "为什么随机拆分时间序列可能虚高结果？",
+      "depends_on": [
+        "QF-W08"
+      ]
+    },
+    {
+      "id": "QF-W10",
+      "week": 10,
+      "phase": "M2",
+      "title": "多重尝试、试验登记与 M2 门槛",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W10",
+      "resources": [
+        "PBO",
+        "DSR",
+        "ISLP"
+      ],
+      "deliverables": [
+        "research/trial-register.csv",
+        "reports/M2-review.md"
+      ],
+      "acceptance": [
+        "运行并解释纯噪声搜索示例，再换种子检查差异",
+        "登记每个试验家族、参数尝试和被否定结果；不编造有效独立次数",
+        "在任何真实收益研究前冻结数据切分及首次评价协议"
+      ],
+      "oral_question": "从一千个参数中选冠军，为什么不只评冠军的 Sharpe？",
+      "depends_on": [
+        "QF-W09"
+      ]
+    },
+    {
+      "id": "QF-W11",
+      "week": 11,
+      "phase": "M3",
+      "title": "数据授权、字段契约与固定快照",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W11",
+      "resources": [
+        "TUSHARE",
+        "SHFE",
+        "NAUTILUS-BT"
+      ],
+      "deliverables": [
+        "notes/data-contract.md",
+        "data/manifests/study-example.json"
+      ],
+      "acceptance": [
+        "记录供应商、字段、单位、许可、覆盖、查询版本和哈希",
+        "真实行情保存在仓库外，仓库仅有可公开元数据或合成数据",
+        "列出缺失、重复、无成交与停止交易的不同语义"
+      ],
+      "oral_question": "原始数据被修订之后，怎样复跑去年做过的实验？",
+      "depends_on": [
+        "QF-W02",
+        "QF-W10"
+      ]
+    },
+    {
+      "id": "QF-W12",
+      "week": 12,
+      "phase": "M3",
+      "title": "夜盘、交易日与多周期时间对齐",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W12",
+      "resources": [
+        "SHFE",
+        "FPP-CV"
+      ],
+      "deliverables": [
+        "labs/session-alignment/",
+        "reports/session-alignment.md"
+      ],
+      "acceptance": [
+        "按真实交易时段验证分钟聚合，不跨休市拼接伪连续时段",
+        "区分 event_time、available_at、received_at 与 decision_time",
+        "测试夜盘、节假日、海外夏令时及迟到记录"
+      ],
+      "oral_question": "日线最终成交量能否用于当天早盘选择主力？",
+      "depends_on": [
+        "QF-W11"
+      ]
+    },
+    {
+      "id": "QF-W13",
+      "week": 13,
+      "phase": "M3",
+      "title": "可投资品种池与主力映射的 as-of 约束",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W13",
+      "resources": [
+        "TUSHARE",
+        "SHFE",
+        "DCE"
+      ],
+      "deliverables": [
+        "labs/universe-asof/",
+        "reports/universe-audit.md"
+      ],
+      "acceptance": [
+        "品种与合约在当时已上市且满足事先定义的流动性条件",
+        "主力/次主力选择只使用决策时已知的信息",
+        "保留退市与失败样本；区分供应商最终主连与历史可交易映射"
+      ],
+      "oral_question": "用今天最活跃的品种回测十年，会漏掉哪些样本？",
+      "depends_on": [
+        "QF-W12"
+      ]
+    },
+    {
+      "id": "QF-W14",
+      "week": 14,
+      "phase": "M3",
+      "title": "换月、连续价格与真实可交易盈亏",
+      "kind": "Implementation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W14",
+      "resources": [
+        "CME",
+        "NAUTILUS-BT"
+      ],
+      "deliverables": [
+        "labs/roll-audit/",
+        "reports/roll-audit.md"
+      ],
+      "acceptance": [
+        "手工构造主连换月跳空，并与两条真实合约腿的盈亏对照",
+        "信号序列、执行价格、结算价格分离；记录复权构造时点",
+        "计入旧仓平仓和新仓开仓成本，解释价差不自动等于收益"
+      ],
+      "oral_question": "近月100、远月110，换过去是不是立刻赚10？",
+      "depends_on": [
+        "QF-W13"
+      ]
+    },
+    {
+      "id": "QF-W15",
+      "week": 15,
+      "phase": "M3",
+      "title": "最小回测账本与 Northstar 差分核对",
+      "kind": "Implementation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W15",
+      "resources": [
+        "CME",
+        "NAUTILUS-BT",
+        "VNPY"
+      ],
+      "deliverables": [
+        "labs/ledger-oracle/",
+        "reports/northstar-ledger-gap.md"
+      ],
+      "acceptance": [
+        "只做小型独立核对器，不再搭建生产回测平台",
+        "逐笔记录成交、持仓、现金/权益、费用和结算；可人工复核",
+        "与现有 Northstar 导出结果比较，缺接口则提交规范而不伪造已集成"
+      ],
+      "oral_question": "持仓收益、已实现收益和账户权益如何在换月日核对？",
+      "depends_on": [
+        "QF-W03",
+        "QF-W14"
+      ]
+    },
+    {
+      "id": "QF-W16",
+      "week": 16,
+      "phase": "M3",
+      "title": "成交约束：成本、涨跌停和不可成交",
+      "kind": "Experiment",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W16",
+      "resources": [
+        "SHFE",
+        "CZCE",
+        "NAUTILUS-BT"
+      ],
+      "deliverables": [
+        "labs/fill-adversarial/",
+        "reports/fill-assumptions.md"
+      ],
+      "acceptance": [
+        "信号产生后才允许成交，明确下一 bar/报价及滞后",
+        "测试涨跌停、无量、部分成交与双腿不同时成交",
+        "明确日线/分钟线不能恢复真实排队顺序，结论标注模型假设"
+      ],
+      "oral_question": "看到最高价经过限价单价格，能否断言已经成交？",
+      "depends_on": [
+        "QF-W15"
+      ]
+    },
+    {
+      "id": "QF-W17",
+      "week": 17,
+      "phase": "M3",
+      "title": "训练、验证、测试隔离与标签重叠",
+      "kind": "Implementation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W17",
+      "resources": [
+        "FPP-CV",
+        "ISLP",
+        "PBO"
+      ],
+      "deliverables": [
+        "research/evaluation-protocol.md",
+        "labs/leakage-tests/"
+      ],
+      "acceptance": [
+        "训练/验证/最终测试的功能分离；测试集不参与择参",
+        "当标签跨区间时按实际信息跨度 purge；embargo 需解释适用方式",
+        "未来字段、全样本标准化、调过的测试集等负面对照被识别"
+      ],
+      "oral_question": "purge 和 embargo 为什么不是随意空出固定百分之几？",
+      "depends_on": [
+        "QF-W16"
+      ]
+    },
+    {
+      "id": "QF-W18",
+      "week": 18,
+      "phase": "M3",
+      "title": "端到端回测审计与 M3 冻结基线",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W18",
+      "resources": [
+        "NAUTILUS-BT",
+        "PBO"
+      ],
+      "deliverables": [
+        "reports/M3-audit.md",
+        "research/baseline-spec.md"
+      ],
+      "acceptance": [
+        "从固定数据到费用后权益曲线均能复跑并对账",
+        "至少覆盖换月、时间泄漏、手续费和不可成交的反例",
+        "通过正确性门槛后才研究策略表现；修复消耗本周而不硬赶进度"
+      ],
+      "oral_question": "漂亮收益曲线出现时，你先排除哪五类工程假象？",
+      "depends_on": [
+        "QF-W17"
+      ]
+    },
+    {
+      "id": "QF-W19",
+      "week": 19,
+      "phase": "M4",
+      "title": "趋势收益来源与 Time Series Momentum 深读",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W19",
+      "resources": [
+        "TSMOM",
+        "MIT-FIN"
+      ],
+      "deliverables": [
+        "papers/time-series-momentum-review.md",
+        "research/trend-hypothesis.md"
+      ],
+      "acceptance": [
+        "区分时序趋势与截面动量",
+        "记录原论文市场、频率、成本及自身迁移差异",
+        "写可证伪假设、比较基线、失败条件，不预设国内一定有效"
+      ],
+      "oral_question": "为什么海外月度趋势的证据不能直接证明国内15分钟策略有效？",
+      "depends_on": [
+        "QF-W18"
+      ]
+    },
+    {
+      "id": "QF-W20",
+      "week": 20,
+      "phase": "M4",
+      "title": "趋势基线：动量、均线、突破",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W20",
+      "resources": [
+        "TSMOM",
+        "VNPY"
+      ],
+      "deliverables": [
+        "labs/trend-baselines/",
+        "reports/trend-baselines.md"
+      ],
+      "acceptance": [
+        "选一条主实现，其余只做小规模结构对照",
+        "参数在验证方案中约束，记录全部试验而不广搜最优",
+        "信号滞后一致、成本一致、资金口径一致"
+      ],
+      "oral_question": "趋势模型是在预测价格，还是在规定持仓响应规则？",
+      "depends_on": [
+        "QF-W19"
+      ]
+    },
+    {
+      "id": "QF-W21",
+      "week": 21,
+      "phase": "M4",
+      "title": "波动率缩放与整数手数",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W21",
+      "resources": [
+        "MIT-FIN",
+        "TSMOM"
+      ],
+      "deliverables": [
+        "labs/volatility-sizing/",
+        "reports/volatility-sizing.md"
+      ],
+      "acceptance": [
+        "用过去信息估计波动，避免全样本波动缩放",
+        "测试零/低波动、缺失值和不稳定估计的处理",
+        "比较连续权重与整数合约，记录最小交易单位造成的偏差"
+      ],
+      "oral_question": "同样名义权重为什么不代表同样风险？",
+      "depends_on": [
+        "QF-W20"
+      ]
+    },
+    {
+      "id": "QF-W22",
+      "week": 22,
+      "phase": "M4",
+      "title": "趋势策略的 walk-forward 与机制敏感性",
+      "kind": "Evaluation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W22",
+      "resources": [
+        "TSMOM",
+        "FPP-CV"
+      ],
+      "deliverables": [
+        "reports/trend-walk-forward.md"
+      ],
+      "acceptance": [
+        "固定方案后分时段和按品种外推，不挑最好时间段",
+        "分析费用、换月规则和波动窗口的扰动",
+        "明确该周测试数据后续已属于开发证据，不能重复称最终留出"
+      ],
+      "oral_question": "换月规则稍变收益就消失，应该得出什么结论？",
+      "depends_on": [
+        "QF-W21"
+      ]
+    },
+    {
+      "id": "QF-W23",
+      "week": 23,
+      "phase": "M4",
+      "title": "期限结构、基差与 carry 的区别",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W23",
+      "resources": [
+        "CME",
+        "CFA",
+        "SHFE"
+      ],
+      "deliverables": [
+        "notes/carry-conventions.md",
+        "labs/curve-features/"
+      ],
+      "acceptance": [
+        "显式定义近远月符号、期限、计价单位和年化约定",
+        "区分现货基差与纯期货曲线 proxy，不把后者包装为真实现货基差",
+        "解释仓储、资金与交割差异；不能由曲线形状断言无风险利润"
+      ],
+      "oral_question": "正向市场、负向市场与下一期实际展期盈亏是什么关系？",
+      "depends_on": [
+        "QF-W22"
+      ]
+    },
+    {
+      "id": "QF-W24",
+      "week": 24,
+      "phase": "M4",
+      "title": "截面动量与 carry 的统一比较",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W24",
+      "resources": [
+        "TSMOM",
+        "MIT-FIN"
+      ],
+      "deliverables": [
+        "labs/cross-sectional-signals/",
+        "reports/cross-sectional.md"
+      ],
+      "acceptance": [
+        "同一 as-of 可交易池中计算排名与分组",
+        "明确等权、等风险和缺失样本处理，记录行业暴露",
+        "费用后与简单趋势比较，不只报告 IC"
+      ],
+      "oral_question": "IC 较高为什么可能仍无法盈利？",
+      "depends_on": [
+        "QF-W21",
+        "QF-W23"
+      ]
+    },
+    {
+      "id": "QF-W25",
+      "week": 25,
+      "phase": "M4",
+      "title": "均值回归与反转：先寻找失败条件",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W25",
+      "resources": [
+        "FPP3",
+        "ISLP"
+      ],
+      "deliverables": [
+        "labs/reversal-baseline/",
+        "reports/reversal-failure-cases.md"
+      ],
+      "acceptance": [
+        "建立简单反转基线及趋势期失效样本",
+        "区分超卖叙事与可验证统计条件",
+        "报告换手、尾部损失和费用，不按胜率选策略"
+      ],
+      "oral_question": "价格跌得多为什么不是买入的充分条件？",
+      "depends_on": [
+        "QF-W24"
+      ]
+    },
+    {
+      "id": "QF-W26",
+      "week": 26,
+      "phase": "M4",
+      "title": "跨期/跨品种价差与双腿风险",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W26",
+      "resources": [
+        "CME",
+        "CFA",
+        "FPP3"
+      ],
+      "deliverables": [
+        "labs/spread-study/",
+        "reports/spread-study.md"
+      ],
+      "acceptance": [
+        "先验证经济关联、单位与两腿交易时段，再考虑统计关系",
+        "对冲比率或协整参数只用过去数据估计；高相关不是平稳证据",
+        "计入双腿成本、整数配比、交割差异和单腿暴露"
+      ],
+      "oral_question": "统计价差回归为什么不等于无风险套利？",
+      "depends_on": [
+        "QF-W08",
+        "QF-W16",
+        "QF-W23"
+      ]
+    },
+    {
+      "id": "QF-W27",
+      "week": 27,
+      "phase": "M4",
+      "title": "季节性和库存信号的时点约束",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W27",
+      "resources": [
+        "CFA",
+        "USDA",
+        "SHFE"
+      ],
+      "deliverables": [
+        "labs/seasonality/",
+        "reports/seasonality.md"
+      ],
+      "acceptance": [
+        "区分月份规律、样本偶然性与交割季节效应",
+        "季节均值仅由过去年份计算；库存按实际发布日期对齐",
+        "比较价格独立基线；库存数据不可用则记录失败与替代设计"
+      ],
+      "oral_question": "仓单减少是否一定说明终端需求变好？",
+      "depends_on": [
+        "QF-W26"
+      ]
+    },
+    {
+      "id": "QF-W28",
+      "week": 28,
+      "phase": "M4",
+      "title": "策略家族对照与 M4 门槛",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W28",
+      "resources": [
+        "PBO",
+        "DSR",
+        "TSMOM"
+      ],
+      "deliverables": [
+        "reports/M4-strategy-comparison.md"
+      ],
+      "acceptance": [
+        "在同一数据快照和成本假设下比较至少两类策略",
+        "保留参数搜索记录、负结果和资金/风险暴露解释",
+        "形成保留/淘汰/证据不足三类结论，不以必须赚钱验收"
+      ],
+      "oral_question": "你能否解释收益来自方向、波动缩放还是交易成本假设？",
+      "depends_on": [
+        "QF-W27"
+      ]
+    },
+    {
+      "id": "QF-W29",
+      "week": 29,
+      "phase": "M5",
+      "title": "产业链地图：先精读两条链",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W29",
+      "resources": [
+        "CFA",
+        "SHFE",
+        "DCE",
+        "CZCE"
+      ],
+      "deliverables": [
+        "notes/commodities/two-chains.md"
+      ],
+      "acceptance": [
+        "从黑色、有色、能源化工、油脂油料、农产品等选两条主线",
+        "整理供需、成本、产能、贸易、库存和可交割品联系",
+        "为每个关键变量指定一手来源和可得性，不凭新闻标题归因"
+      ],
+      "oral_question": "库存、产量与产能分别属于什么变量？",
+      "depends_on": [
+        "QF-W28"
+      ]
+    },
+    {
+      "id": "QF-W30",
+      "week": 30,
+      "phase": "M5",
+      "title": "供需平衡表与统计口径",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W30",
+      "resources": [
+        "USDA",
+        "EIA",
+        "NBS",
+        "CFA"
+      ],
+      "deliverables": [
+        "labs/balance-sheet/",
+        "notes/balance-sheet-conventions.md"
+      ],
+      "acceptance": [
+        "统一单位、统计期间、地域、进口/出口和库存定义",
+        "对一条链建立可核对平衡表及误差项",
+        "区分估算、初值、修订值，不将修订后平衡表前推使用"
+      ],
+      "oral_question": "为什么同一商品不同来源库存数不能直接相加？",
+      "depends_on": [
+        "QF-W29"
+      ]
+    },
+    {
+      "id": "QF-W31",
+      "week": 31,
+      "phase": "M5",
+      "title": "现货基差、仓单与产业利润",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W31",
+      "resources": [
+        "SHFE",
+        "CFA",
+        "CZCE"
+      ],
+      "deliverables": [
+        "notes/spot-basis-audit.md",
+        "research/fundamental-feature-spec.md"
+      ],
+      "acceptance": [
+        "核查现货品级、地点、税、汇率和交割品可比性",
+        "区分社会库存、交易所库存、仓单和可交割库存",
+        "估算利润注明加工比率和成本遗漏，未授权现货数据不入仓库"
+      ],
+      "oral_question": "没有真实可比现货价格时，你的基差因子到底测量什么？",
+      "depends_on": [
+        "QF-W30"
+      ]
+    },
+    {
+      "id": "QF-W32",
+      "week": 32,
+      "phase": "M5",
+      "title": "宏观、美元与内外盘传导",
+      "kind": "Learning",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W32",
+      "resources": [
+        "MIT-FIN",
+        "ALFRED",
+        "NBS",
+        "EIA"
+      ],
+      "deliverables": [
+        "notes/macro-transmission.md",
+        "labs/macro-asof/"
+      ],
+      "acceptance": [
+        "画出可检验的传导路径及相反解释",
+        "历史宏观变量使用当时版本，处理发布时间与时区",
+        "区分相关、条件预测和因果，不把单次事件写成定律"
+      ],
+      "oral_question": "为什么降息既可能伴随商品上涨，也可能伴随下跌？",
+      "depends_on": [
+        "QF-W31"
+      ]
+    },
+    {
+      "id": "QF-W33",
+      "week": 33,
+      "phase": "M5",
+      "title": "事件研究：EIA 或 USDA 的单一案例",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W33",
+      "resources": [
+        "EIA",
+        "EIA-SCHEDULE",
+        "USDA",
+        "ALFRED"
+      ],
+      "deliverables": [
+        "research/event-study-protocol.md",
+        "reports/event-study.md"
+      ],
+      "acceptance": [
+        "事先定义事件、估计窗、反应窗与异常/对照基线",
+        "核验首次公布时间、节假日和夏令时；未获取时点信息则不能声称可交易",
+        "公布值、预期差与事后修订分离，缺共识预期时明确研究问题改变"
+      ],
+      "oral_question": "知道某月报告的最终值，是否就知道公告时市场受到的冲击？",
+      "depends_on": [
+        "QF-W32"
+      ]
+    },
+    {
+      "id": "QF-W34",
+      "week": 34,
+      "phase": "M5",
+      "title": "一个基本面增量实验与 M5 复盘",
+      "kind": "Evaluation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W34",
+      "resources": [
+        "USDA",
+        "EIA",
+        "ALFRED",
+        "PBO"
+      ],
+      "deliverables": [
+        "reports/M5-fundamentals.md"
+      ],
+      "acceptance": [
+        "仅选择一个新增变量，对比价格基线和基线+变量",
+        "冻结试验预算并说明数据时点与覆盖的限制",
+        "资料不足可以产出否定/不可检验报告，不能合成真实结论"
+      ],
+      "oral_question": "基本面解释合理，但没有样本外增量时该怎样处理？",
+      "depends_on": [
+        "QF-W33"
+      ]
+    },
+    {
+      "id": "QF-W35",
+      "week": 35,
+      "phase": "M6",
+      "title": "组合理论与朴素配置基线",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W35",
+      "resources": [
+        "MIT-FIN"
+      ],
+      "deliverables": [
+        "labs/portfolio-baselines/",
+        "notes/portfolio-risk.md"
+      ],
+      "acceptance": [
+        "对比等权、波动倒数与受约束配置的少量基线",
+        "解释协方差估计误差、相关性与杠杆",
+        "分别报告单策略和组合的资金收益口径"
+      ],
+      "oral_question": "多个策略都赚钱是否就能保证组合更稳？",
+      "depends_on": [
+        "QF-W21",
+        "QF-W28"
+      ]
+    },
+    {
+      "id": "QF-W36",
+      "week": 36,
+      "phase": "M6",
+      "title": "小资金约束、合约粒度与风险预算",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W36",
+      "resources": [
+        "CME",
+        "MIT-FIN"
+      ],
+      "deliverables": [
+        "labs/integer-allocation/",
+        "reports/small-capital-feasibility.md"
+      ],
+      "acceptance": [
+        "只使用明确标为假设的资金情景，不代入用户真实账户",
+        "测试最小一手、合约乘数、费用与保证金导致的不可行配置",
+        "允许不交易；不可为了凑满品种而强制提高风险"
+      ],
+      "oral_question": "理论上10%权重对应0.2手时，怎样诚实处理？",
+      "depends_on": [
+        "QF-W35"
+      ]
+    },
+    {
+      "id": "QF-W37",
+      "week": 37,
+      "phase": "M6",
+      "title": "行业聚类、相关性变化与分散",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W37",
+      "resources": [
+        "MIT-FIN",
+        "CFA"
+      ],
+      "deliverables": [
+        "labs/correlation-stress/",
+        "reports/diversification.md"
+      ],
+      "acceptance": [
+        "按经济链条及历史相关性识别集中暴露",
+        "估计只用训练窗口，不用危机后的协方差回看配置",
+        "比较常态与相关性抬升情景，风险预算不等于风险保证"
+      ],
+      "oral_question": "十个品种为什么可能只有两三个风险来源？",
+      "depends_on": [
+        "QF-W36"
+      ]
+    },
+    {
+      "id": "QF-W38",
+      "week": 38,
+      "phase": "M6",
+      "title": "尾部、保证金与无法平仓压力测试",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W38",
+      "resources": [
+        "SHFE",
+        "CZCE",
+        "GFEX",
+        "CME"
+      ],
+      "deliverables": [
+        "labs/margin-stress/",
+        "reports/margin-stress.md"
+      ],
+      "acceptance": [
+        "压力场景包括连续涨跌停、跳空、保证金上调与流动性消失",
+        "展示权益、占用、可用资金和风险限制，不假设止损必能成交",
+        "明示教学场景与真实交易所/期货公司政策的差异"
+      ],
+      "oral_question": "净值仍为正时为什么也可能不能继续持仓？",
+      "depends_on": [
+        "QF-W37"
+      ]
+    },
+    {
+      "id": "QF-W39",
+      "week": 39,
+      "phase": "M6",
+      "title": "交易成本、容量与参与率",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W39",
+      "resources": [
+        "NAUTILUS-BT",
+        "VNPY"
+      ],
+      "deliverables": [
+        "research/cost-model-spec.md",
+        "reports/cost-sensitivity.md"
+      ],
+      "acceptance": [
+        "费用、点差、冲击与延迟分项，场景化而不伪称精确估计",
+        "按可观察交易量、时段和合约评估规模约束",
+        "没有逐笔或盘口数据时，明确日线研究不能验证排队成交"
+      ],
+      "oral_question": "收益随着规模放大为什么不能线性外推？",
+      "depends_on": [
+        "QF-W38"
+      ]
+    },
+    {
+      "id": "QF-W40",
+      "week": 40,
+      "phase": "M6",
+      "title": "组合外推评价与 M6 门槛",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W40",
+      "resources": [
+        "MIT-FIN",
+        "PBO",
+        "DSR"
+      ],
+      "deliverables": [
+        "reports/M6-portfolio-audit.md"
+      ],
+      "acceptance": [
+        "组合、成本和风控规则在评价前冻结",
+        "呈现风险调整和未调整表现、回撤路径及不确定性",
+        "输出继续研究/暂停/淘汰，不把本关当实盘准入"
+      ],
+      "oral_question": "最坏历史回撤为什么不是未来亏损的上限？",
+      "depends_on": [
+        "QF-W39"
+      ]
+    },
+    {
+      "id": "QF-W41",
+      "week": 41,
+      "phase": "M7",
+      "title": "订单生命周期与本地故障注入",
+      "kind": "Implementation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W41",
+      "resources": [
+        "VNPY",
+        "NAUTILUS"
+      ],
+      "deliverables": [
+        "labs/order-state-fixtures/",
+        "notes/execution-state.md"
+      ],
+      "acceptance": [
+        "列出下单、确认、拒绝、部分成交、撤单和撤单失败状态",
+        "测试重复、乱序、超时和取消后迟到成交回报",
+        "仅合成事件，不连接真实发单通道"
+      ],
+      "oral_question": "撤单请求返回成功与订单已经撤销有何区别？",
+      "depends_on": [
+        "QF-W16",
+        "QF-W40"
+      ]
+    },
+    {
+      "id": "QF-W42",
+      "week": 42,
+      "phase": "M7",
+      "title": "CTP/SimNow 只读观察与环境边界",
+      "kind": "Operations",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W42",
+      "resources": [
+        "SIMNOW",
+        "VNPY"
+      ],
+      "deliverables": [
+        "notes/simnow-observation-plan.md",
+        "reports/read-only-observation.md"
+      ],
+      "acceptance": [
+        "从当前官方及期货公司材料核验 API、接入地址、权限与时段",
+        "先做脱敏日志或本地回放；可用时才在本人授权模拟账户只读观察",
+        "研究、Paper、SimNow 与真实账户证据分开；未连通如实记录"
+      ],
+      "oral_question": "模拟行情、模拟成交与真实柜台执行分别证明了什么？",
+      "depends_on": [
+        "QF-W41"
+      ]
+    },
+    {
+      "id": "QF-W43",
+      "week": 43,
+      "phase": "M7",
+      "title": "恢复、幂等与账户/委托核对",
+      "kind": "Experiment",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W43",
+      "resources": [
+        "NAUTILUS",
+        "VNPY"
+      ],
+      "deliverables": [
+        "labs/reconciliation-fixtures/",
+        "reports/recovery-drill.md"
+      ],
+      "acceptance": [
+        "定义具有业务域边界的订单和成交去重键",
+        "重启前后对照持仓、未完委托、成交和本地意图",
+        "恢复先核对再人工批准，不自动重发不确定订单"
+      ],
+      "oral_question": "连接断开时不知道订单有没有成交，应不应该直接重发？",
+      "depends_on": [
+        "QF-W42"
+      ]
+    },
+    {
+      "id": "QF-W44",
+      "week": 44,
+      "phase": "M7",
+      "title": "运行监控、风险开关与故障手册",
+      "kind": "Operations",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W44",
+      "resources": [
+        "NAUTILUS",
+        "VNPY",
+        "CSRC-EDU"
+      ],
+      "deliverables": [
+        "notes/runbook.md",
+        "reports/failure-drills.md"
+      ],
+      "acceptance": [
+        "区分禁止新仓、撤单、主动平仓和断开连接",
+        "演练行情过期、时钟偏差、进程重启、磁盘与网络故障",
+        "规则、报告、账号适当性等列为需向期货公司核验事项；不写已完成合规"
+      ],
+      "oral_question": "停掉策略进程为什么不一定停止已有订单带来的风险？",
+      "depends_on": [
+        "QF-W43"
+      ]
+    },
+    {
+      "id": "QF-W45",
+      "week": 45,
+      "phase": "M7",
+      "title": "前瞻 Paper/影子观察与偏差归因",
+      "kind": "Evaluation",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W45",
+      "resources": [
+        "NAUTILUS-BT",
+        "VNPY"
+      ],
+      "deliverables": [
+        "research/forward-observation-spec.md",
+        "reports/paper-shadow-gap.md"
+      ],
+      "acceptance": [
+        "冻结候选版本和观察窗口，再记录之后产生的信息",
+        "累计延迟、漏信号、费用和不可成交差异，不仅看净值",
+        "观察窗口未结束或样本不足时标记进行中/证据不足，不强行验收盈利"
+      ],
+      "oral_question": "过去文件回放的 Paper 与前瞻影子观察有什么不同？",
+      "depends_on": [
+        "QF-W44"
+      ]
+    },
+    {
+      "id": "QF-W46",
+      "week": 46,
+      "phase": "M7",
+      "title": "向 Northstar 移交规范与 M7 门槛",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W46",
+      "resources": [
+        "NAUTILUS",
+        "VNPY"
+      ],
+      "deliverables": [
+        "research/northstar-handoff.md",
+        "reports/M7-execution-audit.md"
+      ],
+      "acceptance": [
+        "形成数据字段、时间语义、信号、仓位、成本、故障用例和回滚条件",
+        "链接 Northstar 实际实现 Issue/PR；没有就明确仅提交学习规格",
+        "学习仓库没有自动发单、部署生产或账户密钥"
+      ],
+      "oral_question": "一项研究在什么时候才有资格进入独立的工程验收流程？",
+      "depends_on": [
+        "QF-W45"
+      ]
+    },
+    {
+      "id": "QF-W47",
+      "week": 47,
+      "phase": "M8",
+      "title": "复现问题、数据差异与预注册",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W47",
+      "resources": [
+        "TSMOM",
+        "PBO",
+        "DSR"
+      ],
+      "deliverables": [
+        "research/replication-plan.md"
+      ],
+      "acceptance": [
+        "选择一项先前基线做深入复现/迁移检验，不新增无限策略家族",
+        "记录原论文与本实验数据、时期、市场和成本差异",
+        "冻结主要结论、试验预算、结果判断与剩余留出信息"
+      ],
+      "oral_question": "你复现的是原论文数字、算法机制，还是在新市场重新检验？",
+      "depends_on": [
+        "QF-W28",
+        "QF-W34",
+        "QF-W40"
+      ]
+    },
+    {
+      "id": "QF-W48",
+      "week": 48,
+      "phase": "M8",
+      "title": "复现执行与独立核对",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W48",
+      "resources": [
+        "TSMOM",
+        "NAUTILUS-BT"
+      ],
+      "deliverables": [
+        "reports/replication.md",
+        "research/replication-artifacts.json"
+      ],
+      "acceptance": [
+        "保存数据哈希、代码版本、参数与命令",
+        "将关键中间值与独立实现或人工计算核对",
+        "负结果、缺数据和运行失败进入报告，不补写未做的测试"
+      ],
+      "oral_question": "别人如何从你的报告复跑同一条权益曲线？",
+      "depends_on": [
+        "QF-W47"
+      ]
+    },
+    {
+      "id": "QF-W49",
+      "week": 49,
+      "phase": "M8",
+      "title": "反证、消融与稳健性边界",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W49",
+      "resources": [
+        "PBO",
+        "DSR",
+        "ISLP"
+      ],
+      "deliverables": [
+        "reports/falsification.md"
+      ],
+      "acceptance": [
+        "加入预先约定的时间错位、随机信号或无信息对照",
+        "选择少量有机制解释的消融，登记任何新增探索",
+        "报告结论成立的范围，不用扰动后最优参数修饰原结果"
+      ],
+      "oral_question": "哪些证据会让你放弃最喜欢的策略解释？",
+      "depends_on": [
+        "QF-W48"
+      ]
+    },
+    {
+      "id": "QF-W50",
+      "week": 50,
+      "phase": "M8",
+      "title": "机器学习只做一次受控增量比较",
+      "kind": "Experiment",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W50",
+      "resources": [
+        "ISLP",
+        "FPP-CV"
+      ],
+      "deliverables": [
+        "labs/ml-incremental/",
+        "reports/ml-vs-baseline.md"
+      ],
+      "acceptance": [
+        "在线性/正则化/树模型中选一个，与既有简单基线等预算比较",
+        "特征预处理、标签和模型选择严格限制在训练/验证历史",
+        "报告费用后与风险约束后的增量；LLM/深度模型仅为后续选修"
+      ],
+      "oral_question": "复杂模型的提升究竟来自新信息、调参预算还是信息泄漏？",
+      "depends_on": [
+        "QF-W07",
+        "QF-W17",
+        "QF-W47"
+      ]
+    },
+    {
+      "id": "QF-W51",
+      "week": 51,
+      "phase": "M8",
+      "title": "研究报告、反方评审与证据清单",
+      "kind": "Research",
+      "priority": "P1",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W51",
+      "resources": [
+        "PBO",
+        "DSR"
+      ],
+      "deliverables": [
+        "reports/final-research-report.md",
+        "reports/red-team-review.md"
+      ],
+      "acceptance": [
+        "披露所有主要试验、选择过程与未成功结果",
+        "把经济解释、统计证据、工程可行性分别评分",
+        "反方审查数据泄漏、成本、跨期漂移和风险假设"
+      ],
+      "oral_question": "你的结论能否经受一个专门找漏洞的人复核？",
+      "depends_on": [
+        "QF-W50"
+      ]
+    },
+    {
+      "id": "QF-W52",
+      "week": 52,
+      "phase": "M8",
+      "title": "能力验收与下一轮路线重排",
+      "kind": "Evaluation",
+      "priority": "P0",
+      "effort": "M",
+      "estimated_hours": [
+        6,
+        8
+      ],
+      "target": "W52",
+      "resources": [
+        "MIT-FIN",
+        "PBO"
+      ],
+      "deliverables": [
+        "reports/M8-review.md",
+        "notes/next-cycle.md"
+      ],
+      "acceptance": [
+        "无 AI 代答完成口述、手算与小型独立实现抽测",
+        "仅把有证据且本人掌握的项目写入 PROGRESS",
+        "基于差距缩减/扩展下轮范围，不自动开启实盘或宣称能靠量化谋生"
+      ],
+      "oral_question": "目前哪些能力已被证明，哪些只是借助工具暂时跑通？",
+      "depends_on": [
+        "QF-W51"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "CME",
+      "title": "CME：期货入门",
+      "url": "https://www.cmegroup.com/cn-s/education/courses/introduction-to-futures.html",
+      "scope": "合约、名义价值、保证金、到期与结算；不能代替中国交易所规则。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "SHFE-EDU",
+      "title": "上海期货交易所投资者教育",
+      "url": "https://edu.shfe.com.cn/",
+      "scope": "国内期货基础、风险意识、品种学习。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "SHFE",
+      "title": "上海期货交易所",
+      "url": "https://www.shfe.com.cn/",
+      "scope": "合约、交易日历、结算参数、仓单和通知；逐项记录生效日期。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "DCE",
+      "title": "大连商品交易所",
+      "url": "https://www.dce.com.cn/",
+      "scope": "合约、业务规则和品种资料；入口已查到，具体规则须学习时重新核验。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "portal_only"
+    },
+    {
+      "id": "CZCE",
+      "title": "郑州商品交易所法律及规则",
+      "url": "https://www.czce.com.cn/cn/flfg/H077005index_1.htm",
+      "scope": "交易规则、品种细则与历史变更；不从本计划复制固定费率。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "CFFEX",
+      "title": "中国金融期货交易所",
+      "url": "https://www.cffex.com.cn/cn/index.html",
+      "scope": "金融期货规则与衍生品知识；作为第二层覆盖。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "portal_only"
+    },
+    {
+      "id": "GFEX",
+      "title": "广州期货交易所：规则入口",
+      "url": "https://www.gfex.com.cn/gfex/qtxggd/list_notime.shtml",
+      "scope": "规则导航、品种与历史版本；具体适用中文条文另行核验。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "INE",
+      "title": "上海国际能源交易中心",
+      "url": "https://www.ine.cn/",
+      "scope": "能源等合约规则入口；本次访问遇到网站防火墙，未核验规则正文。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "blocked"
+    },
+    {
+      "id": "CFA",
+      "title": "中国期货业协会：期货投资者教育系列丛书",
+      "url": "https://edu.cfachina.org/zsyd/tjsj/",
+      "scope": "按品种选读现货、产业链、合约与风险；不要求全套通读。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "MIT-PROB",
+      "title": "MIT 18.05 Introduction to Probability and Statistics（2022）",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+      "scope": "选学概率、推断、区间和回归；部分示例使用 R，允许用 Python 验证。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "MIT-FIN",
+      "title": "MIT 15.401 Finance Theory I（2008）",
+      "url": "https://ocw.mit.edu/courses/15-401-finance-theory-i-fall-2008/",
+      "scope": "选学风险收益、分散化、组合和衍生品；旧课程不是当前市场规则来源。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "FPP3",
+      "title": "Forecasting: Principles and Practice, 3rd edition",
+      "url": "https://otexts.com/fpp3/",
+      "scope": "时间序列、朴素基线、预测评价；实现以 R 为主。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "FPP-CV",
+      "title": "FPP3：Time series cross-validation",
+      "url": "https://otexts.com/fpp3/tscv.html",
+      "scope": "滚动预测起点与时间顺序评价；并不自动解决交易标签重叠。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "FPP-PY",
+      "title": "Forecasting: Principles and Practice, the Pythonic Way",
+      "url": "https://otexts.com/fpppy/",
+      "scope": "预测原理与 Python 实践；按指定主题选读，不引入整套新平台。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "ISLP",
+      "title": "An Introduction to Statistical Learning with Applications in Python",
+      "url": "https://www.statlearning.com/",
+      "scope": "回归、重采样、正则化、树模型与多重检验；金融时间切分需额外约束。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "TSMOM",
+      "title": "Moskowitz, Ooi & Pedersen：Time Series Momentum（2012）",
+      "url": "https://www.aqr.com/Insights/Research/Journal-Article/Time-Series-Momentum",
+      "scope": "趋势研究原始论文入口；中国市场复现属于迁移检验，不能声称重现原数据结果。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "PBO",
+      "title": "Bailey et al.：The Probability of Backtest Overfitting",
+      "url": "https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf",
+      "scope": "策略选择与回测过拟合；高级 CSCV/PBO 为选修，不以一个统计量批准交易。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "DSR",
+      "title": "Bailey & López de Prado：The Deflated Sharpe Ratio（2014）",
+      "url": "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+      "scope": "多重尝试、非正态收益与表现膨胀；不得编造未记录的试验数量。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "EIA",
+      "title": "EIA Weekly Petroleum Status Report",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/",
+      "scope": "原油与成品油供需、库存；按历史发布时间和版本使用。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "EIA-SCHEDULE",
+      "title": "EIA Weekly Petroleum Status Report Schedule",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
+      "scope": "事件发布时间与节假日例外；美东时区须处理夏令时。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "USDA",
+      "title": "USDA：WASDE 原始报告档案",
+      "url": "https://esmis.nal.usda.gov/publication/world-agricultural-supply-and-demand-estimates",
+      "scope": "农产品供需报告与历史档案；使用当时版本，非今日修订历史。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "ALFRED",
+      "title": "Federal Reserve Bank of St. Louis：ALFRED",
+      "url": "https://alfred.stlouisfed.org/",
+      "scope": "按 vintage 读取宏观历史版本；具体序列的发布日期精度仍需核查。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "NBS",
+      "title": "国家统计局",
+      "url": "https://www.stats.gov.cn/",
+      "scope": "国内宏观与产业统计及发布；记录统计期间、发布时刻、修订。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "TUSHARE",
+      "title": "Tushare：期货基础信息",
+      "url": "https://tushare.pro/document/2?doc_id=135",
+      "scope": "供应商字段语义与接口入口；权限、历史覆盖、分钟数据及再分发许可另行核验。",
+      "kind": "primary",
+      "access": "docs_public_data_permission_dependent",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "SIMNOW",
+      "title": "SimNow 官方入口",
+      "url": "https://www.simnow.com.cn/",
+      "scope": "模拟环境资料入口；本次自动访问失败，未核验当前接入地址或服务时段。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "unavailable"
+    },
+    {
+      "id": "VNPY",
+      "title": "VeighNa：CtaStrategy 官方文档",
+      "url": "https://www.vnpy.com/docs/cn/community/app/cta_strategy.html",
+      "scope": "国内 CTA 模块及策略回调参考；仅对照，不复制出第二个生产系统。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "NAUTILUS",
+      "title": "NautilusTrader：Architecture",
+      "url": "https://nautilustrader.io/docs/latest/concepts/architecture/",
+      "scope": "事件模型、回测/模拟/实盘环境与系统边界；具体 API 需锁定版本。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "NAUTILUS-BT",
+      "title": "NautilusTrader：Backtesting",
+      "url": "https://nautilustrader.io/docs/latest/concepts/backtesting/",
+      "scope": "回放、成交模型与状态组件参考；真实交易所限制必须另行验证。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "CSRC-EDU",
+      "title": "中国证监会投资者教育入口",
+      "url": "https://www.csrc.gov.cn/csrc/c100211/common_list.shtml",
+      "scope": "风险教育来源；未在此包中核验完整现行程序化交易规则，合规任务保持待核验。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "GH-REPO",
+      "title": "GitHub CLI：gh repo create",
+      "url": "https://cli.github.com/manual/gh_repo_create",
+      "scope": "本机授权建库；默认使用私有仓库。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "GH-API",
+      "title": "GitHub CLI：gh api",
+      "url": "https://cli.github.com/manual/gh_api",
+      "scope": "分页读取、JSON 请求体和接口操作。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    },
+    {
+      "id": "GH-PROJECT",
+      "title": "GitHub：Using the API to manage Projects",
+      "url": "https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects",
+      "scope": "个人 Project 权限与字段维护；与仓库权限分开。",
+      "kind": "primary",
+      "access": "public",
+      "checked_at": "2026-09-14",
+      "check_status": "checked"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[project]
+name = "futures-learning-lab"
+version = "0.1.0"
+description = "Chinese futures learning plans and synthetic audit examples; not a trading system"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.ruff]
+line-length = 100
