@@ -1,22 +1,23 @@
-# 与 Northstar 的职责边界
+# 学习仓库与工程仓库的职责边界
 
-2026-09-14 查看 `isqiwen/northstar-quant` README 时，该项目的定位是**一个仓库、一个 Python 包，三个应用：Data Hub、Research、Live**。README 区分研究/Paper/模拟/实盘，并明确完整柜台发单与撤单尚未实现。此处是当日读取快照，后续以实际主分支为准。
-
-来源：[Northstar README](https://github.com/isqiwen/northstar-quant/blob/main/README.md)。学习组织参考：[LLM Learning Lab README](https://github.com/isqiwen/llm-learning-lab/blob/main/README.md) 与其 ROADMAP、Project 管理文档。
+2026-09-16：将 `qlib-futures/docs/research/futures/` 的书目、阅读路线与复现规格迁入本仓库的 [reading/](../reading/README.md)。**学习内容在这里单点维护；工程仓库只保留链接与工程实现说明。**
 
 | 仓库 | 管什么 | 不管什么 |
 |---|---|---|
+| futures-learning-lab | 市场、统计、产业、策略、风险与 AI 研究训练；书目、个人推导、小型核对器和报告 | 生产采集服务、完整交易引擎、真实发单 |
+| qlib-futures | Qlib 期货扩展的代码、接口、工程测试与实现文档 | 重复维护个人阅读计划和能力进度 |
+| northstar-quant | 正式数据、研究运行和交易系统的工程实现与验收 | 代替本人能力验收；将读书或研究结果自动当交易许可 |
 | llm-learning-lab | 大模型原理、实现、系统实验和研究能力 | 期货生产交易 |
-| futures-learning-lab | 市场、统计、产业、策略和风险知识；小型核对器与研究报告 | 生产采集服务、完整交易引擎、真实发单 |
-| northstar-quant / Data Hub | 正式采集、质量、元数据、不可变数据发布 | 个人课程安排 |
-| northstar-quant / Research | 正式因子、策略、回测、版本与研究任务 | 代替学习者能力验收 |
-| northstar-quant / Live | 执行与运行边界、观察核对和后续受控柜台实现 | 把研究报告直接当交易授权 |
+
+Northstar 的“三应用”描述来自 2026-09-14 的 [README 读取记录](https://github.com/isqiwen/northstar-quant/blob/main/README.md)：当时为 Data Hub、Research、Live，且完整柜台发单与撤单尚未实现。这是当日状态记录，不由本次迁移更新为已实现的新架构；使用时以工程仓库实际提交为准。
 
 ## 双向流动
 
-学习实验 → 研究规范与失败案例 → Northstar 工程 Issue/PR → 独立工程验收。Northstar 导出的固定结果 → 学习仓库的小型独立核对器 → 差异报告。只链接已经存在的 Issue/PR，不编造编号。
+学习实验 → 研究规格与失败案例 → 对应工程仓库 Issue/PR → 独立工程验收。工程导出的固定结果 → 本仓库的小型独立核对器 → 差异报告。只链接已经存在的 Issue/PR，不编造编号。
 
-知识仓库可有几百行教学参考实现，用于验证账本、as-of、换月与统计偏差；不为了“完整”重新造 PostgreSQL 服务、下载中心、回测平台、Web UI 或 CTP gateway。
+文献 R 编号可被多个工程项目引用，但不在多个仓库复制一份可变的学习规格。工程实现记录其采用的学习规格提交和自身偏离；学习报告注明代码所在仓库/提交、数据身份与复跑条件。
+
+知识仓库可有小型教学实现，用于核对账本、as-of、换月、统计偏差和因子公式；不为了“完整”重新造 PostgreSQL 服务、下载中心、回测平台、Web UI 或 CTP gateway。真实账户资料、token 与订单发送入口不进入此仓库。
 
 ## 移交内容
 
@@ -24,4 +25,4 @@
 
 ## 项目管理
 
-学习使用独立 `Futures Learning & Research`。不把 52 个学习周任务塞入量化工程 Project #1，也不修改 `LLM Learning & Research`。涉及真实功能实现时才到 Northstar 开独立工程任务并双向链接。
+学习使用独立 `Futures Learning & Research`。不把 52 个学习周任务塞入量化工程 Project #1，也不修改 `LLM Learning & Research`。涉及真实功能实现时才到对应工程仓库开任务并双向链接。迁移不自动创建或关闭 Issue，不替本人更新 PROGRESS。

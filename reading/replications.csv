@@ -1,0 +1,19 @@
+replication_id,paper_id,phase,depends_on,title,status,evidence_path,learner_confirmed
+R01,7,M3,,Basis and term structure,not_started,,false
+R02,13,M4,R04,Cross-sectional momentum,not_started,,false
+R03,14,M4,R02|R09,Momentum plus term structure,not_started,,false
+R04,16,M4,,Time-series momentum,not_started,,false
+R05,15,M5,R04,Open-interest information,not_started,,false
+R06,17,M5,R01,Inventory and fundamentals,not_started,,false
+R07,21,M8,R09,Risk-premium decomposition,not_started,,false
+R08,23,M6,R04,Momentum versus volatility scaling,not_started,,false
+R09,27,M4,R01,Carry,not_started,,false
+R10,29,M4,R02|R09,Basis momentum,not_started,,false
+R11,30,M6,R02|R09,Commodity three-factor benchmark,not_started,,false
+R12,31,M4,R04,China TSMOM,not_started,,false
+R13,32,M8,R11|R12,China carry and momentum,not_started,,false
+R14,40,M8,R02|R09,Commodity machine learning,not_started,,false
+R15,41,M8,R14,Cross-sectional versus time-series prediction,not_started,,false
+R16,35,M8,R14,LLM-generated factor hypotheses,not_started,,false
+R17,36,M8,R01|R02,Curve momentum in China,not_started,,false
+R18,37,M8,R14,Research-report text factors,not_started,,false
